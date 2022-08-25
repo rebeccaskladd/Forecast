@@ -1,9 +1,10 @@
+import ZipCodeForm from './components/ZipCodeForm/ZipCodeForm';
+
 import './App.css';
 
 function App() {
     return (
-        <div>
-        </div>
+        <ZipCodeForm />
     )
 };
 
