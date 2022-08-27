@@ -1,13 +1,7 @@
 import { useState } from "react";
 
 const ZipCodeForm = ({ getWeather }) => {
-    const [zipCodeFields, setZipCodeFields] = useState({
-        zip1: "",
-        zip2: "",
-        zip3: "",
-        zip4: "",
-        zip5: ""
-    });
+    const [zipCodeFields, setZipCodeFields] = useState({});
 
     const handleSubmit = (e) => {
         e.preventDefault();
