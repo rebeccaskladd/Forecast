@@ -1,8 +1,10 @@
-const Weather = ({ currentWeather }) => {
+const Weather = ({ location, currentWeather, forecast }) => {
+    console.log(location);
     console.log(currentWeather);
+    console.log(forecast);
+
     return (
         <div>
-            <p>{currentWeather.name}</p>
         </div>
     )
 };
