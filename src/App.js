@@ -87,6 +87,7 @@ function App() {
 
                         // organize forecast data
                         const organizedData = [];
+                        let key = 1;
                         for (let i = 0; i < forecastData.length; i += 2) {
                             let date = "";
 
@@ -97,8 +98,11 @@ function App() {
                                 date = new Date(Date.now() + (86400000 * (i / 2)));
                             }
 
+                            key++;
+
                             organizedData.push(
                                 {
+                                    key,
                                     date,
                                     weather: forecastData[i].weather,
                                     low_temp: forecastData[i + 1].temperature,
