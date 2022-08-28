@@ -1,9 +1,9 @@
 import ForecastItem from "../ForecastItem/ForecastItem";
 
 const Weather = ({ location, currentWeather, forecast }) => {
-    console.log(location);
-    console.log(currentWeather);
-    console.log(forecast);
+    //console.log(location);
+    //console.log(currentWeather);
+    //console.log(forecast);
 
     const { city, state, date: todaysDate } = location;
     const { temperature, weather, windSpeed, windDirection, isDayTime } = currentWeather;
