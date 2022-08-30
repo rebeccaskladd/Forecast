@@ -23,6 +23,7 @@ function App() {
                     lat = point.coordinates[0];
                     long = point.coordinates[1];
 
+                    console.log(lat, long);
                     setLocation({
                         date: new Date(),
                         city: address.locality,
