@@ -7,10 +7,10 @@ const Weather = ({ location, currentWeather, forecast }) => {
     //console.log(currentWeather);
     //console.log(forecast);
 
-    const { city, state, date: todaysDate } = location;
-    const { temperature, weather, windSpeed, windDirection, isDayTime } = currentWeather;
+    const { city, state, date } = location;
+    const { temperature, weather, isDaytime, precipitation } = currentWeather;
 
-    const { high_temp } = forecast[0];
+    // const { high_temp } = forecast[0];
 
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -19,18 +19,18 @@ const Weather = ({ location, currentWeather, forecast }) => {
         <div className="weather-container">
             <div className="location-info-container">
                 <div className="location-info">
-                    <p>{daysOfWeek[todaysDate.getDay()]}, {months[todaysDate.getMonth()]} {todaysDate.getDate()}, {todaysDate.getFullYear()}</p>
+                    <p>{daysOfWeek[date.getDay()]}, {months[date.getMonth()]} {date.getDate()}, {date.getFullYear()}</p>
                     <p>{`${city}, ${state}`}</p>
                 </div>
                 <div className="weather-details">
-                    <p>Wind: {windSpeed} {windDirection}</p>
+                    <p>Precipitation: {Math.floor(precipitation / 10) * 10}% chance</p>
                 </div>
             </div>
             <div className="weather-block">
                 <p className="temp">{temperature}&#176;F</p>
                 <div className="weather-desc">
                     <p>{weather}</p>
-                    <p>The high today will be {high_temp}&#176;F.</p>
+                    <p>The high today will be &#176;F.</p>
                 </div>
             </div>
 
