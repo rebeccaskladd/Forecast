@@ -22,8 +22,9 @@ const ZipCodeForm = ({ getWeather }) => {
     }
 
     return (
-        <div className="modal">
-            <h2>Input a zip code</h2>
+        <div className="form-container">
+            <h1 className='title'>forecast</h1>
+            <h2 className="subtitle">Input your zip code</h2>
             <form className="zipcode-form" onSubmit={handleSubmit}>
                 <div className="input-container">
                     <input
@@ -77,7 +78,7 @@ const ZipCodeForm = ({ getWeather }) => {
                         onChange={handleChange}
                     />
                 </div>
-                <button>GO</button>
+                <button>Submit</button>
             </form>
         </div>
     )

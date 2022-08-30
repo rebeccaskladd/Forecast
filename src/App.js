@@ -122,12 +122,14 @@ function App() {
     }
 
     return (
-        <div>
-            {
-                currentWeather ?
-                    <Weather location={location} currentWeather={currentWeather} forecast={forecast} />
-                    : <ZipCodeForm getWeather={getWeather} />
-            }
+        <div className="modal">
+            <div className='container'>
+                {
+                    currentWeather ? (
+                        <Weather location={location} currentWeather={currentWeather} forecast={forecast} />
+                    ) : <ZipCodeForm getWeather={getWeather} />
+                }
+            </div>
         </div>
     )
 };
