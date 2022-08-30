@@ -6,6 +6,9 @@
 
 .zipcode-form {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .title {
@@ -30,7 +33,7 @@ input[type=number]::-webkit-outer-spin-button {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 100%;
+    width: 80%;
     margin-bottom: 10px;
 }
 
