@@ -4,8 +4,6 @@ import Weather from './components/Weather/Weather';
 
 import './App.css';
 
-const BING_KEY = 'Aid6JaHRZ6FLi6bt1k3NG1VyntcD82zf8_Xrc8oQ-ly842jD8zv11uETwXzoWauA';
-
 const ACCU_KEY = 'zWALoAII7yEPdoMfpW6rvYF7FtgROG4G';
 
 function App() {
@@ -41,21 +39,54 @@ function App() {
         }
 
         try {
-            await fetch(`http://dataservice.accuweather.com/forecasts/v1/hourly/1hour/${locationKey}?apikey=${ACCU_KEY}`)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
+            Promise.all([
+                fetch(`http://dataservice.accuweather.com/forecasts/v1/hourly/1hour/${locationKey}?apikey=${ACCU_KEY}`),
+                fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${ACCU_KEY}`)
+            ])
+                .then(responses => responses.map(response => response.json()))
+                .then(dataArray => dataArray.forEach((data, index) => data.then(value => {
+                    if (index === 0) {
+                        const { IconPhrase, Temperature, PrecipitationProbability, IsDaylight } = value[0];
 
-                    const { IconPhrase, Temperature, PrecipitationProbability, IsDaylight } = data[0];
+                        setCurrentWeather({
+                            weather: IconPhrase,
+                            isDaytime: IsDaylight,
+                            temperature: Temperature.Value,
+                            precipitation: PrecipitationProbability
+                        });
+                    }
+                    else {
+                        console.log(value);
 
-                    setCurrentWeather({
-                        weather: IconPhrase,
-                        isDaytime: IsDaylight,
-                        temperature: Temperature.Value,
-                        precipitation: PrecipitationProbability
-                    });
-                });
+                        setForecast(value.DailyForecasts.map((element, index) => {
+                            let date = index === 0 ? 'Today' : element.Date;
+                            const { Day, Temperature } = element;
+
+                            return {
+                                date,
+                                weather: Day.IconPhrase,
+                                high_temp: Temperature.Maximum.Value,
+                                low_temp: Temperature.Minimum.Value
+                            };
+                        }));
+                    }
+                })));
         }
+
+        // await fetch(`http://dataservice.accuweather.com/forecasts/v1/hourly/1hour/${locationKey}?apikey=${ACCU_KEY}`)
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         console.log(data);
+
+        //         const { IconPhrase, Temperature, PrecipitationProbability, IsDaylight } = data[0];
+
+        //         setCurrentWeather({
+        //             weather: IconPhrase,
+        //             isDaytime: IsDaylight,
+        //             temperature: Temperature.Value,
+        //             precipitation: PrecipitationProbability
+        //         });
+        //     });
         catch (error) {
             console.log('An error has occurred:', error);
         }
