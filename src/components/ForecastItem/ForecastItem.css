@@ -1,0 +1,38 @@
+.item {
+    background-color: #fff;
+    border-radius: 12px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.date {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.icon {
+    width: 50%;
+    height: auto;
+}
+
+.high-low-temp {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 70%;
+    margin-top: 10px;
+}
+
+.high {
+    font-weight: 600;
+}
+
+.low {
+    color: grey;
+    font-weight: 500;
+}
