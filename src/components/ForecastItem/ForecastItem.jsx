@@ -24,7 +24,7 @@ const ForecastItem = ({ item, daysOfWeek }) => {
     else if (weatherCheck.includes('mostly sunny') || weatherCheck.includes('partly sunny')) {
         weatherIcon = mostlySunny;
     }
-    else if (weatherCheck.includes('clouds') || weatherCheck.includes('cloudly')) {
+    else if (weatherCheck.includes('clouds') || weatherCheck.includes('cloudy')) {
         weatherIcon = cloudy;
     }
 
