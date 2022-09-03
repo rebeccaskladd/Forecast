@@ -17,7 +17,7 @@ function App() {
         // get latitude/longitude from zipcode
         // http://dev.virtualearth.net/REST/v1/Locations?postalCode=${zipCode}&key=${BING_KEY}
         try {
-            await fetch(`http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=${ACCU_KEY}&q=${zipCode}`)
+            await fetch(`https://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=${ACCU_KEY}&q=${zipCode}`)
                 .then(response => response.json())
                 .then(data => {
                     const { Key, LocalizedName, AdministrativeArea } = data[0];
@@ -40,8 +40,8 @@ function App() {
 
         try {
             Promise.all([
-                fetch(`http://dataservice.accuweather.com/forecasts/v1/hourly/1hour/${locationKey}?apikey=${ACCU_KEY}`),
-                fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${ACCU_KEY}`)
+                fetch(`https://dataservice.accuweather.com/forecasts/v1/hourly/1hour/${locationKey}?apikey=${ACCU_KEY}`),
+                fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${ACCU_KEY}`)
             ])
                 .then(responses => responses.map(response => response.json()))
                 .then(dataArray => dataArray.forEach((data, index) => data.then(value => {
