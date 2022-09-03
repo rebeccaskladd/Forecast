@@ -26,8 +26,19 @@ const ZipCodeForm = ({ getWeather }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        if (value.length === 1) {
+        if (value.length <= 1) {
             setZipCodeFields({ ...zipCodeFields, [name]: value });
+        }
+
+        if (value.length === 0) {
+            if (e.target.previousElementSibling) {
+                e.target.previousElementSibling.focus();
+            }
+        }
+        else {
+            if (e.target.nextElementSibling) {
+                e.target.nextElementSibling.focus();
+            }
         }
     }
 
