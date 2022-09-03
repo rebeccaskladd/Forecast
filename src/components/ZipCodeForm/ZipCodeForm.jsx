@@ -30,14 +30,17 @@ const ZipCodeForm = ({ getWeather }) => {
             setZipCodeFields({ ...zipCodeFields, [name]: value });
         }
 
-        if (value.length === 0) {
-            if (e.target.previousElementSibling) {
-                e.target.previousElementSibling.focus();
-            }
-        }
-        else {
+        if (value.length === 1) {
             if (e.target.nextElementSibling) {
                 e.target.nextElementSibling.focus();
+            }
+        }
+    }
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Backspace' && zipCodeFields[e.target.name].length === 0) {
+            if (e.target.previousElementSibling) {
+                e.target.previousElementSibling.focus();
             }
         }
     }
@@ -57,6 +60,7 @@ const ZipCodeForm = ({ getWeather }) => {
                         maxLength="1"
                         placeholder="5"
                         onChange={handleChange}
+                        onKeyDown={handleKeyDown}
                         value={zipCodeFields.zip1}
                     />
                     <input
@@ -68,6 +72,7 @@ const ZipCodeForm = ({ getWeather }) => {
                         maxLength={1}
                         placeholder="5"
                         onChange={handleChange}
+                        onKeyDown={handleKeyDown}
                         value={zipCodeFields.zip2}
                     />
                     <input
@@ -79,6 +84,7 @@ const ZipCodeForm = ({ getWeather }) => {
                         maxLength={1}
                         placeholder="5"
                         onChange={handleChange}
+                        onKeyDown={handleKeyDown}
                         value={zipCodeFields.zip3}
                     />
                     <input
@@ -90,6 +96,7 @@ const ZipCodeForm = ({ getWeather }) => {
                         maxLength={1}
                         placeholder="5"
                         onChange={handleChange}
+                        onKeyDown={handleKeyDown}
                         value={zipCodeFields.zip4}
                     />
                     <input
@@ -101,6 +108,7 @@ const ZipCodeForm = ({ getWeather }) => {
                         maxLength={1}
                         placeholder="5"
                         onChange={handleChange}
+                        onKeyDown={handleKeyDown}
                         value={zipCodeFields.zip5}
                     />
                 </div>
