@@ -67,6 +67,11 @@ button {
 }
 
 button:hover {
-    /* background-color: #aea6a6; */
     background-color: #6f6868;
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        width: 90%;
+    }
 }

@@ -18,9 +18,6 @@ const Weather = ({ location, currentWeather, forecast }) => {
                     <p>{daysOfWeek[date.getDay()]}, {months[date.getMonth()]} {date.getDate()}, {date.getFullYear()}</p>
                     <p>{`${city}, ${state}`}</p>
                 </div>
-                <div className="weather-details">
-                    <p>Precipitation: {Math.floor(precipitation / 10) * 10}%</p>
-                </div>
             </div>
             <div className="weather-block">
                 <p className="temp">{temperature}&#176;F</p>

@@ -25,10 +25,6 @@
     font-size: 20px;
 }
 
-.weather-details {
-    font-size: 14px;
-}
-
 .weather-block {
     display: flex;
     flex-direction: row;
@@ -69,4 +65,38 @@
     width: 140%;
     left: -20%;
     top: 10%;
+}
+
+@media (max-width: 480px) {
+    .item-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        left: -10%;
+        top: 20px;
+        column-gap: 15px;
+        row-gap: 15px;
+        position: relative;
+        width: 120%;
+    }
+
+    .weather-container {
+        justify-content: flex-start;
+        height: 90%;
+    }
+
+    .location-info-container {
+        flex-direction: column;
+        margin-bottom: 0;
+    }
+
+    .location-info {
+        text-align: center;
+    }
+
+    .weather-block {
+        padding: 0;
+        flex-direction: column;
+    }
 }
