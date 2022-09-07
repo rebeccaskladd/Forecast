@@ -2,6 +2,12 @@ import { useState } from 'react';
 import ZipCodeForm from './components/ZipCodeForm/ZipCodeForm';
 import Weather from './components/Weather/Weather';
 
+import defaultBackground from './assets/default-background.jpg';
+import sunnyBackground from './assets/sunny-background.jpg';
+import rainBackground from './assets/rain-background.jpg';
+import stormsBackground from './assets/storms-background.jpg';
+import cloudyBackground from './assets/cloudy-background.jpg';
+
 import './App.css';
 
 const ACCU_KEY = 'zWALoAII7yEPdoMfpW6rvYF7FtgROG4G';
@@ -10,23 +16,18 @@ function App() {
     const [location, setLocation] = useState(null);
     const [currentWeather, setCurrentWeather] = useState(null);
     const [forecast, setForecast] = useState([]);
+    const [background, setBackground] = useState(defaultBackground);
 
     const getWeather = async (zipCode) => {
         let locationKey = "";
 
-        // get latitude/longitude from zipcode
-        // http://dev.virtualearth.net/REST/v1/Locations?postalCode=${zipCode}&key=${BING_KEY}
         try {
             await fetch(`https://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=${ACCU_KEY}&q=${zipCode}`)
                 .then(response => response.json())
                 .then(data => {
                     const { Key, LocalizedName, AdministrativeArea } = data[0];
                     locationKey = Key;
-                    // const { address, point } = data.resourceSets[0].resources[0];
-                    // lat = point.coordinates[0];
-                    // long = point.coordinates[1];
 
-                    // console.log(lat, long);
                     setLocation({
                         date: new Date(),
                         city: LocalizedName,
@@ -54,6 +55,20 @@ function App() {
                             temperature: Temperature.Value,
                             precipitation: PrecipitationProbability
                         });
+
+                        let weatherName = IconPhrase.toLowerCase();
+                        if (weatherName.includes('thunderstorms')) {
+                            setBackground(stormsBackground);
+                        }
+                        else if (weatherName.includes('rain') || weatherName.includes('storms') || weatherName.includes('showers')) {
+                            setBackground(rainBackground);
+                        }
+                        else if (weatherName.includes('sunny')) {
+                            setBackground(sunnyBackground);
+                        }
+                        else if (weatherName.includes('cloudy') || weatherName.includes('clouds')) {
+                            setBackground(cloudyBackground);
+                        }
                     }
                     else {
                         setForecast(value.DailyForecasts.map((element, index) => {
@@ -76,15 +91,17 @@ function App() {
     }
 
     return (
-        <div className="modal">
-            <div className='container'>
-                {
-                    currentWeather && forecast ? (
-                        <Weather location={location} currentWeather={currentWeather} forecast={forecast} />
-                    ) : <ZipCodeForm getWeather={getWeather} />
-                }
+        <div className='main' style={{ backgroundImage: `url(${background})` }}>
+            <div className="modal">
+                <div className='container'>
+                    {
+                        currentWeather && forecast ? (
+                            <Weather location={location} currentWeather={currentWeather} forecast={forecast} />
+                        ) : <ZipCodeForm getWeather={getWeather} />
+                    }
+                </div>
             </div>
-        </div>
+        </div >
     )
 };
 

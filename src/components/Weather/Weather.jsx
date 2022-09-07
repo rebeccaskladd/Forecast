@@ -3,12 +3,6 @@ import ForecastItem from "../ForecastItem/ForecastItem";
 import './Weather.css';
 
 const Weather = ({ location, currentWeather, forecast }) => {
-    //console.log(location);
-    //console.log(currentWeather);
-    console.log(forecast);
-
-    // spinner
-
     const { city, state, date } = location;
     const { temperature, weather, isDaytime, precipitation } = currentWeather;
 
@@ -32,7 +26,7 @@ const Weather = ({ location, currentWeather, forecast }) => {
                 <p className="temp">{temperature}&#176;F</p>
                 <div className="weather-desc">
                     <p>{weather}</p>
-                    <p>The high today will be {high_temp}&#176;F</p>
+                    <p>The high today is {high_temp}&#176;F</p>
                 </div>
             </div>
 
