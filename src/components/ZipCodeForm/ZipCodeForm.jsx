@@ -10,7 +10,7 @@ const INITIAL_ZIPCODE = {
     zip5: ""
 };
 
-const ZipCodeForm = ({ getWeather }) => {
+const ZipCodeForm = ({ getWeather, errorMessage }) => {
     const [zipCodeFields, setZipCodeFields] = useState(INITIAL_ZIPCODE);
 
     const handleSubmit = (e) => {
@@ -112,6 +112,7 @@ const ZipCodeForm = ({ getWeather }) => {
                         value={zipCodeFields.zip5}
                     />
                 </div>
+                <span className="errorMsg">{errorMessage}</span>
                 <button>Submit</button>
             </form>
         </div>

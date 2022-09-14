@@ -15,8 +15,9 @@ const ACCU_KEY = 'zWALoAII7yEPdoMfpW6rvYF7FtgROG4G';
 function App() {
     const [location, setLocation] = useState(null);
     const [currentWeather, setCurrentWeather] = useState(null);
-    const [forecast, setForecast] = useState([]);
+    const [forecast, setForecast] = useState(null);
     const [background, setBackground] = useState(defaultBackground);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const getWeather = async (zipCode) => {
         let locationKey = "";
@@ -25,7 +26,14 @@ function App() {
             await fetch(`https://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=${ACCU_KEY}&q=${zipCode}`)
                 .then(response => response.json())
                 .then(data => {
-                    const { Key, LocalizedName, AdministrativeArea } = data[0];
+                    let locationData = null;
+                    data.forEach((dataPoint) => {
+                        if (dataPoint.Country.ID === 'US') {
+                            locationData = dataPoint;
+                        }
+                    });
+
+                    const { Key, LocalizedName, AdministrativeArea } = locationData;
                     locationKey = Key;
 
                     setLocation({
@@ -37,10 +45,11 @@ function App() {
         }
         catch (error) {
             console.log('An error has occurred:', error);
+            setErrorMessage('Invalid Zip Code');
         }
 
         try {
-            Promise.all([
+            await Promise.all([
                 fetch(`https://dataservice.accuweather.com/forecasts/v1/hourly/1hour/${locationKey}?apikey=${ACCU_KEY}`),
                 fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${ACCU_KEY}`)
             ])
@@ -71,6 +80,7 @@ function App() {
                         }
                     }
                     else {
+                        console.log(value);
                         setForecast(value.DailyForecasts.map((element, index) => {
                             const { Date: date, Day, Temperature } = element;
 
@@ -95,9 +105,9 @@ function App() {
             <div className="modal">
                 <div className='container'>
                     {
-                        currentWeather && forecast ? (
+                        (currentWeather && forecast) ? (
                             <Weather location={location} currentWeather={currentWeather} forecast={forecast} />
-                        ) : <ZipCodeForm getWeather={getWeather} />
+                        ) : <ZipCodeForm getWeather={getWeather} errorMessage={errorMessage} />
                     }
                 </div>
             </div>

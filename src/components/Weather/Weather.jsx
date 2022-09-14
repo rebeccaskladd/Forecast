@@ -3,6 +3,10 @@ import ForecastItem from "../ForecastItem/ForecastItem";
 import './Weather.css';
 
 const Weather = ({ location, currentWeather, forecast }) => {
+    console.log(location);
+    console.log(currentWeather);
+    console.log(forecast);
+
     const { city, state, date } = location;
     const { temperature, weather, isDaytime, precipitation } = currentWeather;
 
